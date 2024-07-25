@@ -3,13 +3,54 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Odiso's Tic-Tac-Toe</title>
     <link rel="stylesheet" href="styles.css" />
     <!-- Link to external CSS file -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <script src="script.js" defer></script>
     <!-- Link to external JavaScript file -->
   </head>
   <body>
-    
+    <div class="main-container">
+      <div class="header">Odiso's Tic-Tac-Toe</div>
+      <div class="input">
+        <form class="name-form">
+          <fieldset>
+            <label for="player-1name">Player one's name</label>
+            <input type="text" id="player-1name" name="player-1name" />
+            <label for="player1-sign">Player one's sign</label>
+            <input type="text" id="player1-sign" name="player1-sign" />
+            <button type="submit" class="submit-button1">Set Player 1</button>
+          </fieldset>
+          <fieldset>
+            <label for="Player-2name">Player two's name</label>
+            <input type="text" id="Player2-name" name="Player2-name" />
+            <label for="player2-sign">Player two's sign</label>
+            <input type="text" id="player2-sign" name="player2-sign" />
+            <button type="submit" class="submit-button2">Set Player 2</button>
+          </fieldset>
+        </form>
+      </div>
+      <div class="main-game">
+        <div class="row">
+          <div class="columns"><p>1</p></div>
+          <div class="columns"><p>2</p></div>
+          <div class="columns"><p>3</p></div>
+        </div>
+        <div class="row">
+          <div class="columns"><p>1</p></div>
+          <div class="columns"><p>2</p></div>
+          <div class="columns"><p>3</p></div>
+        </div>
+        <div class="row">
+          <div class="columns"><p>1</p></div>
+          <div class="columns"><p>2</p></div>
+          <div class="columns"><p>3</p></div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

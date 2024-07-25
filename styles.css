@@ -1,0 +1,261 @@
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  --primary-color: #4682b4;
+  --secondary-color: #ff6b6b;
+  --background-color: #f0f8ff;
+  --text-color: #333;
+  --border-radius: 12px;
+}
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background: linear-gradient(135deg, #87ceeb, #4682b4, #1e90ff);
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Roboto", sans-serif;
+  color: var(--text-color);
+  animation: gradientBG 15s ease infinite;
+  background-size: 400% 400%;
+}
+
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.main-container {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: var(--border-radius);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  max-width: 600px;
+  width: 80%;
+  transition: transform 0.3s ease;
+}
+
+.main-container:hover {
+  transform: translateY(-1px);
+}
+
+.header {
+  color: var(--primary-color);
+  font-size: 3em;
+  font-weight: 700;
+  //margin-bottom: 2rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  display: inline-block;
+}
+
+.name-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+fieldset {
+  border: none;
+  background-color: var(--background-color);
+  border-radius: var(--border-radius);
+  //padding: 1.5rem;
+  margin: 0;
+  transition: box-shadow 0.3s ease;
+}
+
+fieldset:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+input[type="text"] {
+  width: 100%;
+  // padding: 0.75rem;
+  border: 2px solid var(--primary-color);
+  border-radius: calc(var(--border-radius) / 2);
+  font-size: 1em;
+  transition: all 0.3s ease;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.3);
+}
+
+.main-game {
+  margin-top: 3rem;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+}
+
+.columns {
+  width: 90px;
+  height: 90px;
+  border: 2px solid var(--primary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.columns:hover {
+  background-color: rgba(70, 130, 180, 0.1);
+  transform: scale(1.05);
+}
+
+.columns::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.columns:hover::before {
+  opacity: 1;
+}
+
+.columns:first-child {
+  border-left: none;
+}
+
+.columns:last-child {
+  border-right: none;
+}
+
+.row:first-child .columns {
+  border-top: none;
+}
+
+.row:last-child .columns {
+  border-bottom: none;
+}
+
+@media (max-width: 480px) {
+  .main-container {
+    padding: 2rem;
+  }
+
+  .header {
+    font-size: 2.5em;
+  }
+
+  .columns {
+    width: 70px;
+    height: 70px;
+    font-size: 2em;
+  }
+}
+
+:root {
+  --primary-color: #4682b4;
+  --secondary-color: #ff6b6b;
+  --background-color: #f0f8ff;
+  --text-color: #333;
+  --border-radius: 12px;
+}
+
+/* ... (previous styles remain unchanged) ... */
+
+.name-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+fieldset {
+  border: none;
+  background-color: var(--background-color);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  margin: 0;
+  transition: box-shadow 0.3s ease;
+}
+
+fieldset:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--primary-color);
+  border-radius: calc(var(--border-radius) / 2);
+  font-size: 1em;
+  transition: all 0.3s ease;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.3);
+}
+
+.submit-button1,
+.submit-button2 {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: calc(var(--border-radius) / 2);
+  padding: 0.75rem 1.5rem;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  align-self: flex-end;
+}
+
+.submit-button1:hover,
+.submit-button2:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.submit-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ... (rest of the styles remain unchanged) ... */
