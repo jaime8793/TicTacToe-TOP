@@ -9,6 +9,7 @@ html {
   --text-color: #333;
   --border-radius: 12px;
 }
+
 * {
   padding: 0;
   margin: 0;
@@ -57,7 +58,6 @@ body {
   color: var(--primary-color);
   font-size: 3em;
   font-weight: 700;
-  //margin-bottom: 2rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
   position: relative;
   display: inline-block;
@@ -73,7 +73,7 @@ fieldset {
   border: none;
   background-color: var(--background-color);
   border-radius: var(--border-radius);
-  //padding: 1.5rem;
+  padding: 1.5rem;
   margin: 0;
   transition: box-shadow 0.3s ease;
 }
@@ -91,7 +91,7 @@ label {
 
 input[type="text"] {
   width: 100%;
-  // padding: 0.75rem;
+  padding: 0.75rem;
   border: 2px solid var(--primary-color);
   border-radius: calc(var(--border-radius) / 2);
   font-size: 1em;
@@ -102,6 +102,34 @@ input[type="text"]:focus {
   outline: none;
   border-color: var(--secondary-color);
   box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.3);
+}
+
+.submit-button1,
+.submit-button2 {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: calc(var(--border-radius) / 2);
+  padding: 0.75rem 1.5rem;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  align-self: flex-end;
+}
+
+.submit-button1:hover,
+.submit-button2:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.submit-button1:active,
+.submit-button2:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .main-game {
@@ -180,82 +208,19 @@ input[type="text"]:focus {
   }
 }
 
-:root {
-  --primary-color: #4682b4;
-  --secondary-color: #ff6b6b;
-  --background-color: #f0f8ff;
-  --text-color: #333;
-  --border-radius: 12px;
-}
-
-/* ... (previous styles remain unchanged) ... */
-
-.name-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-fieldset {
-  border: none;
-  background-color: var(--background-color);
-  border-radius: var(--border-radius);
-  padding: 1.5rem;
-  margin: 0;
-  transition: box-shadow 0.3s ease;
-}
-
-fieldset:hover {
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-label {
-  display: block;
-  margin-bottom: 0.75rem;
-  font-weight: 600;
+#game-status {
+  margin-top: 1rem;
+  font-size: 1.2em;
+  font-weight: bold;
   color: var(--primary-color);
 }
 
-input[type="text"] {
-  width: 100%;
-  padding: 0.75rem;
-  border: 2px solid var(--primary-color);
-  border-radius: calc(var(--border-radius) / 2);
-  font-size: 1em;
-  transition: all 0.3s ease;
-}
-
-input[type="text"]:focus {
-  outline: none;
-  border-color: var(--secondary-color);
-  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.3);
-}
-
-.submit-button1,
-.submit-button2 {
-  background-color: var(--primary-color);
+#reset-game {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--secondary-color);
   color: white;
   border: none;
-  border-radius: calc(var(--border-radius) / 2);
-  padding: 0.75rem 1.5rem;
-  font-size: 1em;
-  font-weight: 600;
+  border-radius: var(--border-radius);
   cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 1rem;
-  align-self: flex-end;
-}
-
-.submit-button1:hover,
-.submit-button2:hover {
-  background-color: var(--secondary-color);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.submit-button:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* ... (rest of the styles remain unchanged) ... */
+  transition: background-color 0.3s ease;

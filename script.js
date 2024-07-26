@@ -1,89 +1,183 @@
+document.addEventListener("DOMContentLoaded", function () {
+  let button1 = document.querySelector("#submit-button1");
+  let button2 = document.querySelector("#submit-button2");
+  let gameStatus = document.querySelector("#game-status");
+  let resetButton = document.querySelector("#reset-game");
 
+  let player1, player2, currentPlayer;
 
+  const GameBoard = (function () {
+    const rows = 3;
+    let gameBoardArray = [];
 
+    const makeCells = function () {
+      gameBoardArray = Array(rows)
+        .fill()
+        .map(() => Array(rows).fill(null));
+    };
 
+    const resetBoard = function () {
+      makeCells();
+      document.querySelectorAll(".columns").forEach((cell) => {
+        cell.textContent = "";
+        cell.classList.remove("winner");
+      });
+    };
 
-const GameBoard = (function () {
-  const rows = 3;
-  let gameBoardArray = [];
+    return { gameBoardArray, makeCells, resetBoard };
+  })();
 
-  const makeCells = function () {
-    for (i = 0; i < rows; i++) {
-      let array = [3, 3, 3];
-      gameBoardArray.push(array);
+  function Players(name, marker) {
+    let score = 0;
+    return { name, marker, score };
+  }
+
+  function checkWinner(board) {
+    const winPatterns = [
+      [
+        [0, 0],
+        [0, 1],
+        [0, 2],
+      ],
+      [
+        [1, 0],
+        [1, 1],
+        [1, 2],
+      ],
+      [
+        [2, 0],
+        [2, 1],
+        [2, 2],
+      ],
+      [
+        [0, 0],
+        [1, 0],
+        [2, 0],
+      ],
+      [
+        [0, 1],
+        [1, 1],
+        [2, 1],
+      ],
+      [
+        [0, 2],
+        [1, 2],
+        [2, 2],
+      ],
+      [
+        [0, 0],
+        [1, 1],
+        [2, 2],
+      ],
+      [
+        [0, 2],
+        [1, 1],
+        [2, 0],
+      ],
+    ];
+
+    for (let pattern of winPatterns) {
+      const [a, b, c] = pattern;
+      if (
+        board[a[0]][a[1]] &&
+        board[a[0]][a[1]] === board[b[0]][b[1]] &&
+        board[a[0]][a[1]] === board[c[0]][c[1]]
+      ) {
+        return { winner: currentPlayer, pattern };
+      }
     }
-  };
-  return { gameBoardArray, makeCells };
-})();
 
-const Players = function (name, marker) {
-  let score = 0;
-  function increaseScore() {
-    score++;
-    return score;
-  }
-  function decreaseScore() {
-    score--;
-    return score;
-  }
-  return { name, marker, increaseScore, decreaseScore };
-};
+    if (board.every((row) => row.every((cell) => cell !== null))) {
+      return { winner: "tie" };
+    }
 
-const CellChoice = (function () {
+    return null;
+  }
+
+  function highlightWinnerCells(pattern) {
+    pattern.forEach(([row, col]) => {
+      document
+        .querySelector(`.columns[data-row="${row}"][data-col="${col}"]`)
+        .classList.add("winner");
+    });
+  }
+
+  function updateGameStatus(result) {
+    if (result.winner === "tie") {
+      gameStatus.textContent = "It's a tie!";
+    } else {
+      gameStatus.textContent = `${result.winner.name} wins!`;
+      result.winner.score++;
+      highlightWinnerCells(result.pattern);
+    }
+    document
+      .querySelectorAll(".columns")
+      .forEach((cell) => cell.removeEventListener("click", cellClickHandler));
+  }
+
+  function cellClickHandler() {
+    let row = parseInt(this.dataset.row);
+    let col = parseInt(this.dataset.col);
+    if (GameBoard.gameBoardArray[row][col] === null) {
+      GameBoard.gameBoardArray[row][col] = currentPlayer.marker;
+      this.textContent = currentPlayer.marker;
+
+      let result = checkWinner(GameBoard.gameBoardArray);
+      if (result) {
+        updateGameStatus(result);
+      } else {
+        currentPlayer = currentPlayer === player1 ? player2 : player1;
+        gameStatus.textContent = `${currentPlayer.name}'s turn`;
+      }
+    }
+  }
+
+  function startGame() {
+    if (!player1 || !player2) {
+      gameStatus.textContent =
+        "Please set both players before starting the game.";
+      return;
+    }
+    GameBoard.resetBoard();
+    currentPlayer = player1;
+    gameStatus.textContent = `${currentPlayer.name}'s turn`;
+    document.querySelectorAll(".columns").forEach((cell) => {
+      cell.addEventListener("click", cellClickHandler);
+    });
+  }
+
+  button1.addEventListener("click", function (event) {
+    event.preventDefault();
+    let inputName1 = document.getElementById("player-1name");
+    let inputSign1 = document.getElementById("player1-sign");
+    player1 = Players(inputName1.value, inputSign1.value);
+    inputName1.value = "";
+    inputSign1.value = "";
+    gameStatus.textContent = "Player 1 set. Please set Player 2.";
+  });
+
+  button2.addEventListener("click", function (event) {
+    event.preventDefault();
+    let inputName2 = document.getElementById("player-2name");
+    let inputSign2 = document.getElementById("player2-sign");
+    player2 = Players(inputName2.value, inputSign2.value);
+    inputName2.value = "";
+    inputSign2.value = "";
+    startGame();
+  });
+
+  resetButton.addEventListener("click", function () {
+    GameBoard.resetBoard();
+    player1 = null;
+    player2 = null;
+    currentPlayer = null;
+    gameStatus.textContent = "Game reset. Please set players again.";
+    document.querySelectorAll(".columns").forEach((cell) => {
+      cell.removeEventListener("click", cellClickHandler);
+    });
+  });
+
+  // Initialize the game board
   GameBoard.makeCells();
-  //console.log(GameBoard.gameBoardArray);
-  console.log(GameBoard.gameBoardArray[0][1]);
-  const chooseCell = function (array, index, marker) {
-    if (GameBoard.gameBoardArray[array].index !== 3) {
-      console.log("Already used that cell");
-    } else {
-      return GameBoard.gameBoardArray[array].splice(index, 1, marker);
-    }
-  };
-  return { chooseCell };
-})();
-
-const CheckWinner = (function () {
-  if (GameBoard.gameBoardArray[0][1] === GameBoard.gameBoardArray[array] || GameBoard.gameBoardArray[array].index || GameBoard.gameBoardArray[array].index) {
-    
-  } else if (GameBoard.gameBoardArray[array].index || GameBoard.gameBoardArray[array].index ) {
-    
-  }
-}
-return{}
-)()
-
-function playGame() {
-  let Player1 = Players(
-    prompt("Please enter your name"),
-    prompt("please choose your sign ")
-  );
-  let Player2 = Players(
-    prompt("Please enter your name"),
-    prompt("please choose your sign ")
-  );
-  console.log(Player1);
-  console.log(Player2);
-  for (i = 1; i <= 9; i++) {
-    if (i % 2 === 0) {
-      CellChoice.chooseCell(
-        prompt("which row?"),
-        prompt("Which index?"),
-        Player1.marker
-      );
-      console.log(GameBoard.gameBoardArray);
-    } else {
-      CellChoice.chooseCell(
-        prompt("which row?"),
-        prompt("Which index?"),
-        Player2.marker
-      );
-      console.log(GameBoard.gameBoardArray);
-    }
-    console.log(GameBoard.gameBoardArray);
-  }
-}
-
-playGame();
-//playGame.chooseCell(1, 1);
-//console.log(GameBoard.gameBoardArray);
+});
+//revist to make better
