@@ -180,4 +180,3 @@ document.addEventListener("DOMContentLoaded", function () {
   // Initialize the game board
   GameBoard.makeCells();
 });
-//revist to make better
